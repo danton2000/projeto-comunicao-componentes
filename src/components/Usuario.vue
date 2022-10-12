@@ -2,11 +2,18 @@
     <div class="container">
         <h1>Componente Usuário</h1>
         <p>Esse é um componente muito legal!</p>
+        <p>Nome é <strong>{{nome}}</strong></p>
         <button @click="alterarNome">Alterar Nome</button>
         <hr>
         <div class="componentes">
             <!-- passando uma propriedade que tem um valor, ':nome' interpolando a variavel e mandando para o componente -->
-            <app-usuario-info :nome="nome"/>
+            <!-- ouvindo o evento que o filho disparou -->
+            <!-- enviando como propriedade uma função -->
+            <app-usuario-info
+                :nome="nome"
+                @nomeMudou="nome = $event"
+                :reiniciarFn="reiniciarNome"
+            />
             <app-usuario-editar />
         </div>
     </div>
@@ -26,6 +33,10 @@ export default {
     methods: {
         alterarNome(){
             this.nome = 'Ana'
+        },
+
+        reiniciarNome() {
+            this.nome = 'Pedro'
         }
     }
 }
